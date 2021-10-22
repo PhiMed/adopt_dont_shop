@@ -1,1 +1,5 @@
-<%= @application %>
+<h1>Application Index</h1>
+<% @application.each do |application| %>
+<hr>
+  <%= link_to "#{application.name}", "/applications/#{application.id}"%>
+<% end %>

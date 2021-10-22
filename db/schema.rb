@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2021_10_22_021033) do
     t.string "street_address"
     t.string "city"
     t.integer "zip_code"
+    t.string "state"
     t.string "reason"
     t.string "application_status"
   end
