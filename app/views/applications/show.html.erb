@@ -1,11 +1,13 @@
+<h1>Applicant Show</h1>
+<br>
 Applicant Name: <%= @application.name %><br>
-Street address: <%= @application.name %><br>
-City: <%= @application.name %><br>
-State: <%= @application.name %><br>
-Zip code: <%= @application.name %><br>
-Reason why they feel they would be a good home: <%= @application.name %><br>
+Street address: <%= @application.street_address%><br>
+City: <%= @application.city %><br>
+State: <%= @application.state %><br>
+Zip code: <%= @application.zip_code %><br>
+Reason why they feel they would be a good home: <%= @application.reason %><br>
 Pets Applied for:<br>
-<%= @application.pets.each do |pet| %>
-<p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
-<% end %>
-Application Status: "In Progress", "Pending", "Accepted", or "Rejected"
+<%= @pets_applied_for.each do |pet| %>
+<%=link_to pet.name, "/pets/#{pet.id}"%>
+<% end %><br>
+Application Status: <%= @application.application_status%>

@@ -9,6 +9,7 @@ class ApplicationsController < ActionController::Base
 
   def show
     @application = Application.find(params[:id])
+    @pets_applied_for = @application.pets
   end
 
   private
