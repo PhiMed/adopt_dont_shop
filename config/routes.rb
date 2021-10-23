@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/applications', to: 'applications#index'
   get '/applications/new', to: 'applications#new'
   post 'applications', to: 'applications#create'
+  post 'applications/submit', to: 'applications#submit'
   get '/applications/:id', to: 'applications#show'
 
   post '/application_pets/', to: 'application_pets#create'

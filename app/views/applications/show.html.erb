@@ -7,22 +7,32 @@ City: <%= @application.city %><br>
 State: <%= @application.state %><br>
 Zip code: <%= @application.zip_code %><br>
 Reason why they feel they would be a good home: <%= @application.reason %><br>
-Pets Applied for:<br>
+<h3>Pets Applied for:</h3><br>
 <%= @pets_applied_for.each do |pet| %>
 <%=link_to pet.name, "/pets/#{pet.id}"%><br>
 <% end %><br>
 <h3> Application Status: <u><%= @application.application_status%></u></h3>
 <hr>
-Add a Pet to this Application
-<%= form_with url:'/pets', method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search, required: :true %>
-  <%= f.hidden_field :redirect_to_application?, value: @application.id %>
-  <%= f.submit "Search" %>
+<h3>Submit Application</h3>
+<%= form_with url: "/applications/submit", method: :post, local: true do |f| %>
+  <%= f.label :why_would_you_make_a_good_owner_for_these_pets? %>
+  <%= f.text_field :reason, required: :true %>
+  <%= f.hidden_field :id, value: @application.id %>
+  <%= f.submit "Submit" %>
 <% end %>
 <hr>
+<% if @application.application_status != "Pending" %>
+  <h3>Add a Pet to this Application</h3>
+  <%= form_with url:'/pets', method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search, required: :true %>
+    <%= f.hidden_field :redirect_to_application?, value: @application.id %>
+    <%= f.submit "Search" %>
+  <% end %>
+<% end %>
 
-<% @searched_pets.each do |sp| %>
+<hr>
+  <% @searched_pets.each do |sp| %>
   <h3><%= sp.name %></h3>
   <p>breed: <%= sp.breed %></p>
   <p>age: <%= sp.age %></p>

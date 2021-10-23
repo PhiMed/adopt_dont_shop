@@ -22,6 +22,13 @@ class ApplicationsController < ActionController::Base
       end)
   end
 
+  def submit
+    @application = Application.find_by_id("#{(params[:id])}")
+    @application.assign_attributes({:reason => params[:reason]})
+    @application.update_attributes({:application_status => "Pending"})
+    redirect_to "/applications/#{@application.id}"
+  end
+
   private
 
   def application_params
