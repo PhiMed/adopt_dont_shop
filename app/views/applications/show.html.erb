@@ -13,12 +13,14 @@ Reason why they feel they would be a good home: <%= @application.reason %><br>
 <% end %><br>
 <h3> Application Status: <u><%= @application.application_status%></u></h3>
 <hr>
-<h3>Submit Application</h3>
-<%= form_with url: "/applications/submit", method: :post, local: true do |f| %>
-  <%= f.label :why_would_you_make_a_good_owner_for_these_pets? %>
-  <%= f.text_field :reason, required: :true %>
-  <%= f.hidden_field :id, value: @application.id %>
-  <%= f.submit "Submit" %>
+<% if @application.application_pets.count != 0 && @application.application_status != "Pending"  %>
+  <h3>Submit Application</h3>
+  <%= form_with url: "/applications/submit", method: :post, local: true do |f| %>
+    <%= f.label :why_would_you_make_a_good_owner_for_these_pets? %>
+    <%= f.text_field :reason, name: :reason, required: :true %>
+    <%= f.hidden_field :id, value: @application.id %>
+    <%= f.submit "Submit" %>
+  <% end %>
 <% end %>
 <hr>
 <% if @application.application_status != "Pending" %>

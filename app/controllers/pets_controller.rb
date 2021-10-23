@@ -1,7 +1,7 @@
 class PetsController < ApplicationController
   def index
     if params[:search].present?
-      @pets = Pet.search(params[:search])
+      @pets = Pet.where("name like ?", "%#{params[:search]}%")
       if request.env["HTTP_REFERER"].include?("applications")
         redirect_to controller: 'applications', action: 'show',
          id: params[:redirect_to_application], search: "#{params[:search]}"
