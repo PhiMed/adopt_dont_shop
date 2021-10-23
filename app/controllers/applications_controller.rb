@@ -3,10 +3,6 @@ class ApplicationsController < ActionController::Base
     @application = Application.all
   end
 
-  def create
-    @application = Application.create!(application_params)
-  end
-
   def new
   end
 
@@ -18,9 +14,12 @@ class ApplicationsController < ActionController::Base
   def show
     @application = Application.find(params[:id])
     @pets_applied_for = @application.pets
-    @all_pets = Pet.all
-    @searched_pet = Pet.search(params[:search])
-    
+    @searched_pets = (
+      if params[:search].present?
+        Pet.search(params[:search])
+      else
+        []
+      end)
   end
 
   private

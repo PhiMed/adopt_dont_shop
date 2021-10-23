@@ -5,8 +5,6 @@ class PetsController < ApplicationController
       if request.env["HTTP_REFERER"].include?("applications")
         redirect_to controller: 'applications', action: 'show',
          id: params[:redirect_to_application], search: "#{params[:search]}"
-
-        # redirect_to "#{request.env["HTTP_REFERER"]}"
       end
     else
       @pets = Pet.adoptable
