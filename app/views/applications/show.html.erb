@@ -1,4 +1,4 @@
-<h1>Applicant Show</h1>
+<h1>Application Show Page</h1>
 <br>
 Applicant Name: <%= @application.name %><br>
 Street address: <%= @application.street_address%><br>
@@ -11,3 +11,13 @@ Pets Applied for:<br>
 <%=link_to pet.name, "/pets/#{pet.id}"%>
 <% end %><br>
 Application Status: <%= @application.application_status%>
+<hr>
+Add a Pet to this Application
+<%= form_with url:'/pets', method: :get, local: true do |f| %>
+  <%= f.label :search %>
+  <%= f.text_field :search %>
+  <%= f.hidden_field :redirect_to_application?, value: @application.id %>
+  <%= f.submit "Search" %>
+<% end %>
+<hr>
+<%= @searched_pet.first.name %>
