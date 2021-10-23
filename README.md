@@ -49,7 +49,7 @@ During the evaluation, you will present your user story:
 ## Deploy
 
 ```
-[ ] done
+[X] done
 
 Deploy your application to Heroku
 
@@ -117,7 +117,7 @@ And I see a message that I must fill in those fields.
 ```
 
 ```
-[ ] done
+[X] done
 
 Searching for Pets for an Application
 
