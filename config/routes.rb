@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   get '/applications', to: 'applications#index'
   get '/applications/new', to: 'applications#new'
-  post 'applications', to: 'applications#create'
-  post 'applications/submit', to: 'applications#submit'
   get '/applications/:id', to: 'applications#show'
+  post 'applications', to: 'applications#create'
+  patch 'applications/:id', to: 'applications#update'
 
   post '/application_pets/', to: 'application_pets#create'
 
@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get '/shelters/:id/edit', to: 'shelters#edit'
   patch '/shelters/:id', to: 'shelters#update'
   delete '/shelters/:id', to: 'shelters#destroy'
+
+  get 'admin/shelters', to: 'admin_shelters#index'
 
   get '/pets', to: 'pets#index'
   get '/pets/:id', to: 'pets#show'
