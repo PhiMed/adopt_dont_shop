@@ -20,7 +20,7 @@ RSpec.describe 'the admin shelters index' do
 
 
     visit "admin/shelters"
-  
+
     expect(c.name).to appear_before(b.name)
     expect(b.name).to appear_before(a.name)
   end
