@@ -1,12 +1,8 @@
 class ApplicationPetsController < ApplicationController
-  def index
-    @application = Application.find(params[:application_id])
-    @pet = Pet.find(params[:pet_id])
-  end
 
   def create
-    @application = Application.find_by_id("#{(params[:application_id])}")
-    @pet = Pet.find_by_id("#{(params[:pet_id])}")
+    @application = Application.find(params[:application_id])
+    @pet = Pet.find(params[:pet_id])
     already_there = false
     @application.application_pets.each do |a|
       if "#{a.pet_id}" == params[:pet_id]

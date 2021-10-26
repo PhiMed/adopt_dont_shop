@@ -13,7 +13,6 @@ class ApplicationsController < ActionController::Base
 
   def show
     @application = Application.find(params[:id])
-    @pets_applied_for = @application.pets
     @searched_pets = (
       if params[:search].present?
         Pet.search(params[:search])
@@ -22,7 +21,7 @@ class ApplicationsController < ActionController::Base
       end)
   end
 
-  def submit
+  def update
     @application = Application.find_by_id("#{(params[:id])}")
     @application.assign_attributes({:reason => params[:reason]})
     @application.update_attributes({:application_status => "Pending"})
