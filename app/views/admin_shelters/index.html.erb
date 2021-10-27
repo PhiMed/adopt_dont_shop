@@ -1,9 +1,9 @@
 <h1>Admin Shelters Index</h1>
 
-<% @adminshelters.each do |shelter| %>
+<% @shelters.reverse_alpha_order.each do |shelter| %>
   <p><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></p>
 <% end %>
 <h3>Shelters with pending applications</h3>
-<% @pendingshelters.each do |shelter| %>
+<% @shelters.shelters_with_pending_app.each do |shelter| %>
   <p><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></p>
 <% end %>

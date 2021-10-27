@@ -16,18 +16,16 @@ Reason why they feel they would be a good home: <%= @application.reason %><br>
   <%= (pet.application_pets.where(application_id: @application.id).pluck(:status)).flatten.to_s.gsub(/[^a-zA-Z0-9\-]/,"")  %></p>
     <% end %>
   <% if pet.application_pets.where(application_id: @application.id).pluck(:status).flatten.to_s.gsub(/[^a-zA-Z0-9\-]/,"") != "Approved" %>
-    <%= form_with url: "/application_pets", method: :put, local: true do |f| %>
+    <%= form_with url: "/application/#{@application.id}/pets", method: :put, local: true do |f| %>
       <%= f.submit "Approve this pet application" %>
       <%= f.hidden_field :pet_id, value: pet.id %>
-      <%= f.hidden_field :application_id, value: @application.id %>
       <%= f.hidden_field :status, value: 'Approved' %>
     <% end %>
   <% end %>
   <% if pet.application_pets.where(application_id: @application.id).pluck(:status).flatten.to_s.gsub(/[^a-zA-Z0-9\-]/,"") != "Rejected" %>
-    <%= form_with url: "/application_pets", method: :put, local: true do |f| %>
+    <%= form_with url: "/application/#{@application.id}/pets", method: :put, local: true do |f| %>
       <%= f.submit "Deny this pet application" %>
       <%= f.hidden_field :pet_id, value: pet.id %>
-      <%= f.hidden_field :application_id, value: @application.id %>
       <%= f.hidden_field :status, value: 'Rejected' %>
     <% end %>
   <% end %>

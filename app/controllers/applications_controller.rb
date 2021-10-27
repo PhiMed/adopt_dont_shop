@@ -7,8 +7,13 @@ class ApplicationsController < ActionController::Base
   end
 
   def create
-    application = Application.create(application_params)
-    redirect_to "/applications/#{application.id}"
+    application = Application.new(application_params)
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      redirect_to '/applications/new'
+      flash[:alert] = "Error: You must complete all fields"
+    end
   end
 
   def show
@@ -23,9 +28,14 @@ class ApplicationsController < ActionController::Base
 
   def update
     application = Application.find_by_id("#{(params[:id])}")
+    if params[:reason].empty?
+      redirect_to "/applications/#{application.id}"
+      flash[:alert] = "Error: You must provide a reason"
+    else
     application.assign_attributes({:reason => params[:reason]})
     application.update_attributes({:application_status => "Pending"})
     redirect_to "/applications/#{application.id}"
+    end
   end
 
   private

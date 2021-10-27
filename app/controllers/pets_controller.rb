@@ -4,7 +4,7 @@ class PetsController < ApplicationController
       @pets = Pet.where("lower(name) like ?", "%#{params[:search].downcase}%")
       if request.env["HTTP_REFERER"].include?("applications")
         redirect_to controller: 'applications', action: 'show',
-         id: params[:redirect_to_application], search: "#{params[:search]}"
+         id: params[:id], search: "#{params[:search]}"
       end
     else
       @pets = Pet.adoptable
@@ -21,7 +21,6 @@ class PetsController < ApplicationController
 
   def create
     pet = Pet.new(pet_params)
-
     if pet.save
       redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
     else

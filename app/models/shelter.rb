@@ -49,7 +49,7 @@ class Shelter < ApplicationRecord
     shelters.each do |s|
       container << (Shelter.find_by id: s)
     end
-    container
+    container.uniq
   end
 
   def average_age
