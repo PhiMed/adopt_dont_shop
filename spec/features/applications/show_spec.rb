@@ -93,4 +93,20 @@ RSpec.describe 'application show page' do
     expect(page).to have_content("Dr. Fluff MD")
   end
 
+  it 'displays an error if submitted with the reason field blank' do
+    shelter = Shelter.create!(name: "Foothills Animal Shelter", rank: "1", city: "Golden")
+    pet_1 = Pet.create!(name: "Hayden", age: "4", adoptable: "true", breed: "Aussie Mix", shelter_id: "#{shelter.id}")
+    app_1 = Application.create(name: 'Adam Herrara-Ochoa', street_address: '21',
+       city: 'Mexico DF', state: 'DF', zip_code: 12050)
+
+    visit "/applications/#{app_1.id}"
+    fill_in("Search", with: "Hayden")
+    click_button('Search')
+    click_button('Adopt this pet')
+    click_button('Submit')
+
+    expect(current_path).to eq("/applications/#{app_1.id}")
+    expect(page).to have_content("Error: You must provide a reason")
+  end
+
 end
