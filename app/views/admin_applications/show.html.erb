@@ -1,0 +1,24 @@
+<h1>Admin Application Show Page</h1>
+
+<h3>Applicant Name: <u><%= @application.name %></u></h3>
+Street address: <%= @application.street_address%><br>
+City: <%= @application.city %><br>
+State: <%= @application.state %><br>
+Zip code: <%= @application.zip_code %><br>
+Reason why they feel they would be a good home: <%= @application.reason %><br>
+<h3>Pets Applied for:</h3><br>
+<%= @application.pets.each do |pet| %>
+<%= pet.name %>
+<%= form_with url: "/application_pets", method: :put, local: true do |f| %>
+  <%= f.submit "Approve this pet application" %>
+  <%= f.hidden_field :pet_id, value: pet.id %>
+  <%= f.hidden_field :application_id, value: @application.id %>
+<% end %>
+<%= form_with url: "/application_pets", method: :put, local: true do |f| %>
+  <%= f.submit "Deny this pet application" %>
+  <%= f.hidden_field :pet_id, value: pet.id %>
+  <%= f.hidden_field :application_id, value: @application.id %><% end %><br>
+<%end%>
+<br>
+<h3> Application Status: <u><%= @application.application_status%></u></h3>
+<hr>
