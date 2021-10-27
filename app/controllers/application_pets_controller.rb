@@ -14,4 +14,16 @@ class ApplicationPetsController < ApplicationController
       redirect_to "/applications/#{@application.id}"
     end
   end
+
+  def update
+    application_pet = ApplicationPet.where(application_id: (params[:application_id]), pet_id: (params[:pet_id]))
+    application = Application.find(params[:application_id])
+    application_pet.each do |ap|
+      ap.assign_attributes({:status => "#{params[:status]}"})
+      ap.save
+    end
+    redirect_to "/admin/applications/#{params[:application_id]}"
+  end
+
+
 end
