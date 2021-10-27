@@ -22,10 +22,10 @@ class ApplicationsController < ActionController::Base
   end
 
   def update
-    @application = Application.find_by_id("#{(params[:id])}")
-    @application.assign_attributes({:reason => params[:reason]})
-    @application.update_attributes({:application_status => "Pending"})
-    redirect_to "/applications/#{@application.id}"
+    application = Application.find_by_id("#{(params[:id])}")
+    application.assign_attributes({:reason => params[:reason]})
+    application.update_attributes({:application_status => "Pending"})
+    redirect_to "/applications/#{application.id}"
   end
 
   private

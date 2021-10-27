@@ -1,23 +1,36 @@
 <h1>Admin Application Show Page</h1>
 
-<h3>Applicant Name: <u><%= @application.name %></u></h3>
+<h2>Applicant Name: <u><%= @application.name %></u></h2>
 Street address: <%= @application.street_address%><br>
 City: <%= @application.city %><br>
 State: <%= @application.state %><br>
 Zip code: <%= @application.zip_code %><br>
 Reason why they feel they would be a good home: <%= @application.reason %><br>
-<h3>Pets Applied for:</h3><br>
+<h2>Pets Applied for:</h2>
 <%= @application.pets.each do |pet| %>
-<%= pet.name %>
-<%= form_with url: "/application_pets", method: :put, local: true do |f| %>
-  <%= f.submit "Approve this pet application" %>
-  <%= f.hidden_field :pet_id, value: pet.id %>
-  <%= f.hidden_field :application_id, value: @application.id %>
-<% end %>
-<%= form_with url: "/application_pets", method: :put, local: true do |f| %>
-  <%= f.submit "Deny this pet application" %>
-  <%= f.hidden_field :pet_id, value: pet.id %>
-  <%= f.hidden_field :application_id, value: @application.id %><% end %><br>
+  <h3><%= pet.name %></h3>
+  <p>Status:
+  <% if pet.application_pets.where(application_id: @application.id).pluck(:status).flatten.to_s.gsub(/[^a-zA-Z0-9\-]/,"") == "nil" %>
+    <%= "Pending" %>
+    <% else %>
+  <%= (pet.application_pets.where(application_id: @application.id).pluck(:status)).flatten.to_s.gsub(/[^a-zA-Z0-9\-]/,"")  %></p>
+    <% end %>
+  <% if pet.application_pets.where(application_id: @application.id).pluck(:status).flatten.to_s.gsub(/[^a-zA-Z0-9\-]/,"") != "Approved" %>
+    <%= form_with url: "/application_pets", method: :put, local: true do |f| %>
+      <%= f.submit "Approve this pet application" %>
+      <%= f.hidden_field :pet_id, value: pet.id %>
+      <%= f.hidden_field :application_id, value: @application.id %>
+      <%= f.hidden_field :status, value: 'Approved' %>
+    <% end %>
+  <% end %>
+  <% if pet.application_pets.where(application_id: @application.id).pluck(:status).flatten.to_s.gsub(/[^a-zA-Z0-9\-]/,"") != "Rejected" %>
+    <%= form_with url: "/application_pets", method: :put, local: true do |f| %>
+      <%= f.submit "Deny this pet application" %>
+      <%= f.hidden_field :pet_id, value: pet.id %>
+      <%= f.hidden_field :application_id, value: @application.id %>
+      <%= f.hidden_field :status, value: 'Rejected' %>
+    <% end %>
+  <% end %>
 <%end%>
 <br>
 <h3> Application Status: <u><%= @application.application_status%></u></h3>
