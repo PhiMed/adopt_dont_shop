@@ -4,6 +4,9 @@ https://git.heroku.com/protected-sea-02378.git
 
 # Adopt, don't Shop
 
+![Screen Shot 2021-11-17 at 2 14 06 PM](https://user-images.githubusercontent.com/87627363/142283471-9412f8e7-1d03-4809-a1f6-4a1afa7f1539.png)
+
+
 ### Existing database design
 ![visual-schema.png](https://i.postimg.cc/0ywZgQ1W/visual-schema.png)
 
